@@ -23,5 +23,7 @@ urlpatterns = [
     path('api/', include("apps.api.urls")), 
     path('task/', include("apps.task.urls")),
     path('books/', include("apps.books.urls")),
-    path('shop/', include("apps.shop.urls")) ###
+    path('shop/', include("apps.shop.urls")), ###
+    path('users/', include("apps.users.urls")) 
 ]
+

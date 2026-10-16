@@ -44,7 +44,7 @@ INSTALLED_APPS = [
     'apps.task',# 
     'apps.books',# 
     'apps.shop',# 
-    
+    'apps.users',# 
 ]
 
 MIDDLEWARE = [
@@ -138,6 +138,13 @@ CACHES = {
 
 # Настройки Django Rest Framework
 REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': [
+        'rest_framework.authentication.SessionAuthentication',
+        'rest_framework.authentication.BasicAuthentication',
+    ],
+    'DEFAULT_PERMISSIONS_CLASSES': [
+        'rest_framework.permission.ISAuthenticationOrReadOnly',
+    ],
     'DEFAULT_RENDERER_CLASSES': [
         'rest_framework.renderers.JSONRenderer',
         'rest_framework.renderers.BrowsableAPIRenderer',
