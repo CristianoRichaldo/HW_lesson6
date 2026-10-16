@@ -1,6 +1,6 @@
 from django.core.cache import cache
 from django.shortcuts import get_object_or_404
-from rest_framework import status
+from rest_framework import status, permissions
 from rest_framework.response import Response
 from rest_framework.views import APIView
 
@@ -9,6 +9,8 @@ from .serializers import TaskSerializer
 
 
 class TaskView(APIView):
+    permission_classes = [permissions.AllowAny]
+
     def get(self, request):
         # 1. Проверяем, есть ли данные в кэше
         tasks_data = cache.get("tasks")
@@ -39,6 +41,8 @@ class TaskView(APIView):
 
 
 class TaskDetailView(APIView):
+    permission_classes = [permissions.AllowAny]
+
     def get(self, request, pk):
         task = get_object_or_404(Task, pk=pk)
         serializer = TaskSerializer(task)
