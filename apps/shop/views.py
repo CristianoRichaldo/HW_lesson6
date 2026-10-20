@@ -10,6 +10,20 @@ from .permissions import IsOwnerOrReadOnly, IsAdminOrReadOnly
 from django_filters.rest_framework import DjangoFilterBackend 
 from rest_framework.filters import SearchFilter, OrderingFilter
 
+from drf_spectacular.utils import extend_schema, OpenApiResponse, extend_schema_view
+
+SHOP = ['МАРКЕТ']
+
+
+@extend_schema_view(
+    list=extend_schema(tags=SHOP, summary='ПОЛУЧЕНИЕ СПИСКА МАРКЕТОВ'),
+    retrieve=extend_schema(tags=SHOP, summary='ДЕТАЛЬНЫЙЙ ПРОСМОТР МАРКЕТЫ'),
+    create=extend_schema(tags=SHOP, summary='СОЗДАНИЕ МАРКЕТАА'),
+    update=extend_schema(tags=SHOP, summary='ПОЛНОЕ ОБНОВЛЕНИЕ МАРКЕТА'),
+    partial_update=extend_schema(tags=SHOP, summary='ЧАСТИЧНОЕ ОБНОВЛЕНИЕ МАРКЕТА'),
+    destroy=extend_schema(tags=SHOP, summary='УДАЛЕНИЕ МАРКЕТА'),
+)
+
 class ShopViewSets(viewsets.ModelViewSet):
     queryset = Shop.objects.all()
     serializer_class = ShopSer
@@ -20,6 +34,18 @@ class ShopViewSets(viewsets.ModelViewSet):
     search_fields = ['name', 'color']
     ordering_fields = ['name', 'id']
     ordering = ['id']
+
+    # def get_permissions(self):
+    #     if self.action in ['list', 'retrieve']:
+    #         self.permission_classes = [permissions.AllowAny]
+    #     elif self.action == 'create':
+    #         self.permission_classes = [permissions.IsAuthenticated]
+    #     if self.action in ['update', 'partial_update', 'destroy']:
+    #         self.permission_classes = [IsAdminOrReadOnly]
+    #     else:
+    #         self.permission_classes = [permissions.IsAuthenticatedOrReadOnly]
+    #     return[permission() for permission in self.permission_classes]
+
 
     def perform_create(self, serializer):
         if self.request.user.is_authenticated:
