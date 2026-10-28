@@ -41,11 +41,13 @@ INSTALLED_APPS = [
     'rest_framework',
     'drf_spectacular',
     'django_filters',
-    'apps.api',#
-    'apps.task',# 
-    'apps.books',# 
-    'apps.shop',# 
-    'apps.users',# 
+    'apps.api',
+    'apps.task',
+    'apps.books', 
+    'apps.shop', 
+    'apps.users', 
+    'rest_framework.authtoken',
+    'drf_yasg',
 ]
 
 MIDDLEWARE = [
@@ -136,6 +138,13 @@ CACHES = {
         'TIMEOUT': 300,  # Время жизни кэша по умолчанию: 300 секунд (5 минут)
     }
 }
+from datetime import timedelta
+SIMPLE_JWT = {
+    'ACCESS_TOKEN_LIFETIME': timedelta(minutes=60),
+    'REFRESH_TOKEN_LIFETIME': timedelta(days=1),
+
+}
+
 
 # Настройки Django Rest Framework
 REST_FRAMEWORK = {
@@ -170,7 +179,7 @@ SIMPLE_JWT = {
     'AUTHHEADER_TYPES': ('Bearer',),
 }
 
-SPECTACULAR_SETTINGS = {#######
+SPECTACULAR_SETTINGS = {
     'TITLE': "Документация для FRONTEND",
     'DESCRIPTION': "Интерактивная документация Swagger / OpenAPI",
     'VERSION': '1.0.0',

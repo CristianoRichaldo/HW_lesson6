@@ -71,3 +71,4 @@ class ProductViewSet(viewsets.ModelViewSet):
         "category": ["exact"],
         "shop": ["exact"],
     }
+ 
